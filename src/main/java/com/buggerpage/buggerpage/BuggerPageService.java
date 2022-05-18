@@ -25,10 +25,10 @@ public class BuggerPageService {
         }
     }
 
-    public String addBuggerPage(BuggerPage bp) {
+    public Integer addBuggerPage(BuggerPage bp) {
         if (!buggerPageRepository.findByName(bp.name).isPresent()){
             buggerPageRepository.save(bp);
-            return "Succesfully added " + bp.toString();
+            return bp.id;
         }
         else {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "A bugger page with this name already exists.");

@@ -33,7 +33,7 @@ public class BuggerPageController {
     }
 
     @PostMapping(path = "/add", consumes = "application/json")
-    public @ResponseBody String addBuggerPage(@RequestBody BuggerPage bp){
+    public @ResponseBody Integer addBuggerPage(@RequestBody BuggerPage bp){
         return buggerPageService.addBuggerPage(bp);
     }
 
