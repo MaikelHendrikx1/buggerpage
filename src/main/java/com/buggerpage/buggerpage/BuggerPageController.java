@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:6001", "http://localhost:6002", "http://localhost:6003" })
 @RequestMapping(path = "/BuggerPages")
 public class BuggerPageController {
     @Autowired
@@ -50,5 +50,15 @@ public class BuggerPageController {
     @PostMapping(path = "/deleteMaintainers")
     public @ResponseBody void deleteMaintainers(@RequestBody Set<Integer> userIds, @RequestParam Integer pageId) {
         buggerPageService.deleteMaintainers(userIds, pageId);
+    }
+
+    @GetMapping(path = "/generateKey")
+    public @ResponseBody String generateKey(@RequestParam Integer pageId, @RequestParam String ownerPassword, @RequestParam String ownerEmail){
+        return buggerPageService.generateKey(pageId, ownerPassword, ownerEmail);
+    }
+
+    @GetMapping(path = "/verifyKey")
+    public @ResponseBody Boolean verifyKey(@RequestParam Integer pageId, @RequestParam String key){
+        return buggerPageService.verifyKey(pageId, key);
     }
 }

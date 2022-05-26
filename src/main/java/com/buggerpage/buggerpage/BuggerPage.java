@@ -1,5 +1,7 @@
 package com.buggerpage.buggerpage;
 
+import java.security.SecureRandom;
+import java.util.Base64;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -18,6 +20,8 @@ public class BuggerPage {
     @Column(length = 50)
     public String name;
 
+    private byte[] publicKey;
+
     @Column(length = 5000)
     public String description;
 
@@ -34,8 +38,24 @@ public class BuggerPage {
         this.description = description;
     }
 
+    public String generateKey() {
+        this.publicKey = generateSalt16Byte();
+        return Base64.getEncoder().encodeToString(publicKey);
+    }
+
+    public Boolean KeyCorrect(String keyString){
+        return (Base64.getEncoder().encodeToString(publicKey).equals(keyString));
+    }
+
     @Override
     public String toString(){
         return id + " | " + name + " | " + description;
     } 
+
+    private byte[] generateSalt16Byte() {
+        SecureRandom secureRandom = new SecureRandom();
+        byte[] salt = new byte[16];
+        secureRandom.nextBytes(salt);
+        return salt;
+    }
 }
