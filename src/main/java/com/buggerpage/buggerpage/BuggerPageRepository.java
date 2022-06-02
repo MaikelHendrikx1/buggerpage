@@ -21,7 +21,7 @@ public interface BuggerPageRepository extends CrudRepository<BuggerPage, Integer
 
     public List<BuggerPage> findByOwnerId(Integer ownerId);
 
-    @Query(nativeQuery = true, value = "SELECT id, description, name, owner_id FROM bugger_page INNER JOIN bugger_page_maintainers  ON bugger_page_id = id WHERE maintainers=?1")
+    @Query(nativeQuery = true, value = "SELECT * FROM bugger_page INNER JOIN bugger_page_maintainers  ON bugger_page_id = id WHERE maintainers=?1")
     public List<BuggerPage> findByMaintainerId(Integer userId);
 
     public Optional<BuggerPage> findByName(String name);
